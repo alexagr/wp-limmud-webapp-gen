@@ -561,13 +561,13 @@ function parse_sheets($client, $app_name, $sheet_id, $config)
 }
 
 $days_ru = array(
+    0 => 'воскресенье',
     1 => 'понедельник',
     2 => 'вторник',
     3 => 'среда',
     4 => 'четверг',
     5 => 'пятница',
-    6 => 'суббота',
-    7 => 'воскресенье'
+    6 => 'суббота'
 );
 $months_ru = array(
     1 => 'января',
@@ -599,13 +599,13 @@ $months_short_ru = array(
 );
 
 $days_he = array(
+    0 => 'ראשון',
     1 => 'שני',
     2 => 'שלישי',
     3 => 'רביעי',
     4 => 'חמישי',
     5 => 'שישי',
-    6 => 'שבת',
-    7 => 'ראשון'
+    6 => 'שבת'
 );
 $months_he = array(
     1 => 'ינואר',
@@ -637,13 +637,13 @@ $months_short_he = array(
 );
 
 $days_en = array(
+    0 => 'Sunday',
     1 => 'Monday',
     2 => 'Tuesday',
     3 => 'Wednesday',
     4 => 'Thursday',
     5 => 'Friday',
-    6 => 'Saturday',
-    7 => 'Sunday'
+    6 => 'Saturday'
 );
 $months_en = array(
     1 => 'January',
@@ -744,9 +744,9 @@ function foldByTime($sessions, $speakers, $tracks) {
             'language2' => $session['language2'],
             'language_short' => $session['language_short'],
             'session_id' => $session['id'],
-            'sessiondate_ru' => $days_ru[date('N', $timestamp)] . ', ' . date('j', $timestamp) . ' ' . $months_short_ru[date('n', $timestamp)],
-            'sessiondate_he' => $days_he[date('N', $timestamp)] . ', ' . date('j', $timestamp) . ' ' . $months_short_he[date('n', $timestamp)],
-            'sessiondate_en' => $days_en[date('N', $timestamp)] . ', ' . $months_short_en[date('n', $timestamp)] . ' ' . date('j', $timestamp),
+            'sessiondate_ru' => $days_ru[date('w', $timestamp)] . ', ' . date('j', $timestamp) . ' ' . $months_short_ru[date('n', $timestamp)],
+            'sessiondate_he' => $days_he[date('w', $timestamp)] . ', ' . date('j', $timestamp) . ' ' . $months_short_he[date('n', $timestamp)],
+            'sessiondate_en' => $days_en[date('w', $timestamp)] . ', ' . $months_short_en[date('n', $timestamp)] . ' ' . date('j', $timestamp),
             'tracktitle' => $session['track']['name'],
             'tracktitle2' => $session['track']['name2']
         );
@@ -946,9 +946,9 @@ function foldByRooms($sessions, $speakers, $tracks) {
             'language2' => $session['language2'],
             'language_short' => $session['language_short'],
             'session_id' => $session['id'],
-            'sessiondate' => $days_ru[date('N', $timestamp)] . ', ' . date('j', $timestamp) . ' ' . $months_short_ru[date('n', $timestamp)],
-            'sessiondate_he' => $days_he[date('N', $timestamp)] . ', ' . date('j', $timestamp) . ' ' . $months_short_he[date('n', $timestamp)],
-            'sessiondate_en' => $days_en[date('N', $timestamp)] . ', ' . $months_short_en[date('n', $timestamp)] . ' ' . date('j', $timestamp),
+            'sessiondate' => $days_ru[date('w', $timestamp)] . ', ' . date('j', $timestamp) . ' ' . $months_short_ru[date('n', $timestamp)],
+            'sessiondate_he' => $days_he[date('w', $timestamp)] . ', ' . date('j', $timestamp) . ' ' . $months_short_he[date('n', $timestamp)],
+            'sessiondate_en' => $days_en[date('w', $timestamp)] . ', ' . $months_short_en[date('n', $timestamp)] . ' ' . date('j', $timestamp),
             'tracktitle' => $session['track']['name'],
             'tracktitle2' => $session['track']['name2']
         );
@@ -1068,9 +1068,9 @@ function getSpeakerSessions($speakerid, $sessions, $tracks)
             'language2' => $session['language2'],
             'language_short' => $session['language_short'],
             'session_id' => $session['id'],
-            'date_ru' => $days_ru[date('N', $timestamp)] . ', ' . date('j', $timestamp) . ' ' . $months_short_ru[date('n', $timestamp)],
-            'date_he' => $days_he[date('N', $timestamp)] . ', ' . date('j', $timestamp) . ' ' . $months_short_he[date('n', $timestamp)],
-            'date_en' => $days_en[date('N', $timestamp)] . ', ' . $months_short_en[date('n', $timestamp)] . ' ' . date('j', $timestamp),
+            'date_ru' => $days_ru[date('w', $timestamp)] . ', ' . date('j', $timestamp) . ' ' . $months_short_ru[date('n', $timestamp)],
+            'date_he' => $days_he[date('w', $timestamp)] . ', ' . date('j', $timestamp) . ' ' . $months_short_he[date('n', $timestamp)],
+            'date_en' => $days_en[date('w', $timestamp)] . ', ' . $months_short_en[date('n', $timestamp)] . ' ' . date('j', $timestamp),
             'tracktitle' => $session['track']['name'],
             'tracktitle2' => $session['track']['name2']
         );
