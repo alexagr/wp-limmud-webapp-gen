@@ -19,6 +19,20 @@
         </tr>
     </table>
 
+    <table class="form-table" role="presentation">
+        <tr>
+            <th scope="row"><label for="close_calendar_gaps"><?php echo esc_html__("Close gaps between sessions in calendar view", 'webapp-gen') ?></label></th>
+            <td><?php echo $close_calendar_gaps; ?></td>
+        </tr>
+    </table>
+
+    <table class="form-table" role="presentation">
+        <tr>
+            <th scope="row"><label for="close_calendar_gaps_ignore_meals"><?php echo esc_html__("Ignore meals when closing gaps", 'webapp-gen') ?></label></th>
+            <td><?php echo $close_calendar_gaps_ignore_meals; ?></td>
+        </tr>
+    </table>
+
     <?php webapp_gen_submit(esc_html__('Update')); ?>
 </form>
 </div>

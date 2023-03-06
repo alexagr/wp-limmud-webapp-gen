@@ -200,7 +200,7 @@ function parse_sheets($client, $app_name, $sheet_id, $config)
     }
 
     foreach ($speakers as $key => $speaker) {
-        if (($speaker['photo'] == 'avatar.png') && (empty($speaker['long_biography']))) {
+        if (($speaker['photo'] == 'avatar.png') && (empty($speaker['bio']))) {
             $speakers[$key]['has_data'] = false;
         }
     }
@@ -851,7 +851,7 @@ function checkWidth($columns)
 }
 
 
-function foldByRooms($sessions, $speakers, $tracks) {
+function foldByRooms($sessions, $speakers, $tracks, $config) {
     global $days_ru;
     global $months_ru;
     global $months_short_ru;
@@ -994,24 +994,26 @@ function foldByRooms($sessions, $speakers, $tracks) {
         $dates[$date]['width'] = checkWidth(count($dates[$date]['rooms']));
     }
 
-    // extend session to cover 15 min break after them
-    global $timeToPixel;
-    foreach ($dates as $date => $data) {
-        foreach ($dates[$date]['rooms'] as $room => $value) {
-            $tops = array();
-            foreach ($dates[$date]['rooms'][$room]['sessions'] as $key => $session) {
-                $tops[] = $session['top'];
-            }
-            foreach ($dates[$date]['rooms'][$room]['sessions'] as $key => $session) {
-                if ($session['location'] == 'Столовая')
-                    continue;
-                $adjust = $timeToPixel;
-                foreach ($tops as $top) {
-                    if (($session['bottom'] + $adjust > $top) && ($session['bottom'] + $adjust - $top <= $timeToPixel)) {
-                        $adjust = $top - $session['bottom'];
-                    }
+    if ($config['close_calendar_gaps'] != 'no') {
+        // extend session to cover 15 min break after them
+        global $timeToPixel;
+        foreach ($dates as $date => $data) {
+            foreach ($dates[$date]['rooms'] as $room => $value) {
+                $tops = array();
+                foreach ($dates[$date]['rooms'][$room]['sessions'] as $key => $session) {
+                    $tops[] = $session['top'];
                 }
-                $dates[$date]['rooms'][$room]['sessions'][$key]['height'] += $adjust - 6;
+                foreach ($dates[$date]['rooms'][$room]['sessions'] as $key => $session) {
+                    if (($config['close_calendar_gaps_ignore_meals'] == 'yes') && ($session['location'] == 'Столовая'))
+                        continue;
+                    $adjust = intval($config['close_calendar_gaps']) / 15 * $timeToPixel;
+                    foreach ($tops as $top) {
+                        if (($session['bottom'] + $adjust > $top) && ($session['bottom'] + $adjust - $top <= $timeToPixel)) {
+                            $adjust = $top - $session['bottom'];
+                        }
+                    }
+                    $dates[$date]['rooms'][$room]['sessions'][$key]['height'] += $adjust - 6;
+                }
             }
         }
     }
@@ -1093,9 +1095,11 @@ function foldBySpeakers($sessions, $speakers, $tracks)
 
     $i = 0;
     foreach ($speakersList as $name => $speaker) {
-        $speakersList[$name]['row_start'] = ($i % 3 == 0);
-        $speakersList[$name]['row_end'] = ($i % 3 == 2);
-        $i += 1;
+        if ($speakersList[$name]['has_data']) {
+            $speakersList[$name]['row_start'] = ($i % 3 == 0);
+            $speakersList[$name]['row_end'] = ($i % 3 == 2);
+            $i += 1;
+        }
     }
     return $speakersList;
 }
@@ -1114,9 +1118,11 @@ function foldBySpeakers2($sessions, $speakers, $tracks)
 
     $i = 0;
     foreach ($speakersList as $name => $speaker) {
-        $speakersList[$name]['row_start'] = ($i % 3 == 0);
-        $speakersList[$name]['row_end'] = ($i % 3 == 2);
-        $i += 1;
+        if ($speakersList[$name]['has_data']) {
+            $speakersList[$name]['row_start'] = ($i % 3 == 0);
+            $speakersList[$name]['row_end'] = ($i % 3 == 2);
+            $i += 1;
+        }
     }
     return $speakersList;
 }
@@ -1150,7 +1156,7 @@ function generate($config)
     );
 
     $model['timeList'] = foldByTime($sessions, $speakers, $tracks);
-    $model['roomsList'] = foldByRooms($sessions, $speakers, $tracks);
+    $model['roomsList'] = foldByRooms($sessions, $speakers, $tracks, $config['webapp-gen-advanced']);
     $model['speakersList'] = foldBySpeakers($sessions, $speakers, $tracks);
     $model['speakersList2'] = foldBySpeakers2($sessions, $speakers, $tracks);
 
