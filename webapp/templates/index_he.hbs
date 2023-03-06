@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="he">
+  <head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+  <meta name="description" content="{{event.name2}}">
+  <meta name="author" content="{{event.organizer_name}}">
+
+  <title>{{event.name2}}</title>
+
+  <!-- Bootstrap core CSS -->
+  <!-- Latest compiled and minified CSS -->
+  {{> fonts}}
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/schedule_he.css">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="assets/img/icon.png"/>
+
+  {{> analytics}}
+
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  <body dir="rtl">
+    <a id="top"></a>
+    {{> navbar_he}}
+
+    <div class="poster">
+      <img class="poster-img desktop" src="{{event.poster}}" style="width:100%;">
+      <img class="poster-img mobile" src="{{event.poster_mobile}}" style="width:100%;">
+    </div>
+
+  <div class ="container">
+    <div class="row">
+      <br>
+      <div class="col-md-12"><a href="schedule_he.html" class="pull-left btn btn-lg btn-primary" role="button" style="border-radius: 24px;">תוכנית</a></div>
+    </div>
+
+    <div class="row">
+      <div class="eventdes col-md-12 mobile">
+        <p>ברוכים הבאים לפסטיבל {{event.name2}}!</p>
+        <p>על מנת לראות תוכנית הפסטיבל לחצו על הכפתור  <img src="assets/img/iconbar.png"/> בפינה הימנית העליונה ובחרו אופציה <b>תוכנית</b>.
+        לחצו על שם היחידה על מנת לראות מידע נוסף אודותיה.
+        אם אתם מחפשים הרצאה ספציפית, הקלידו את נושא ההרצאה או שם של המרצה בשדה חיפוש או השתמשו בכפתור <i class="fa fa-search"></i> בפינה הימנית.
+        השתמשו בסימן השעון <i class="fa fa-clock"></i> בפינה הימנית כדי לעבור להרצאה הבאה.
+        </p>
+        <p>ניתן לסמן הרצאות בעזרת כוכבית <i class="fa fa-star"></i> ליד שם היחידה.
+        הסימון ישאר בפעמים הבאות שתפתחו תוכנית הפסטיבל מאותו הטלפון.
+        אם אתם רוצים לצמצם את הרשימה רק להרצאות המסומנות לחצו על הכפתור עם כוכבית ליד שדה החיפוש.
+        </p>
+        <p>אם אתם מחפשים מידע אודות המרצים של הפסטיבל, בחרו אופציה <b>מרצים</b> בתפריט.
+        לחצו על התמונה של המרצה על מנת לראות קורות חייו ואת רשימת ההרצאות.
+        </p>
+        <p>אם אתם רוצים לראות את לוח הזמנים של פסטיבל בצורת טפט, בחרו אופציה <b>לו"ז</b> בתפריט. לחצו על שם היחידה על מנת לראות מידע נוסף אודותיה.
+		</p>
+        <p>על מנת לפשט שימוש בתוכנית הפסטיבל צרו קיצור דרך אליה במסך דף הבית כדלקמן:</p>
+        <ul>
+          <li>אם אתם משתמשים באנדרויד (Chrome) לחצו על הכפתור <b>תפרית</b> (Menu) <img src="assets/img/menu.png"/> בפינה הימנית העליונה ובחרו <b>התקן יישומון</b> (Install app)</li>
+          <li>אם אתם משתמשים באייפון (Safari) לחצו על כפתור <b>שליחה</b> (Send) <img src="assets/img/send.png"/> למטה במרכז ובחרו <b>הוסף למסך דף הבית</b> (Add to Home Screen)</li>
+        </ul>
+        <br>
+      </div>
+      <div class="eventdes col-md-12 desktop">
+        <p>ברוכים הבאים לפסטיבל {{event.name2}}!</p>
+        <p>על מנת לראות תוכנית הפסטיבל בחרו אופציה <b>תוכנית</b> בתפריט העליון.
+        לחצו על שם היחידה על מנת לראות מידע נוסף אודותיה.
+        אם אתם מחפשים הרצאה ספציפית, הקלידו את נושא ההרצאה או שם של המרצה בשדה חיפוש או השתמשו בכפתור <i class="fa fa-search"></i> בפינה הימנית.
+        השתמשו בסימן השעון <i class="fa fa-clock"></i> בפינה הימנית כדי לעבור להרצאה הבאה.
+        </p>
+        <p>ניתן לסמן הרצאות בעזרת כוכבית <i class="fa fa-star"></i> ליד שם היחידה.
+        הסימון ישאר בפעמים הבאות שתפתחו תוכנית הפסטיבל מאותו המחשב.
+        אם אתם רוצים לצמצם את הרשימה רק להרצאות המסומנות לחצו על הכפתור עם כוכבית ליד שדה החיפוש.
+        </p>
+        <p>אם אתם מחפשים מידע אודות המרצים של הפסטיבל, בחרו אופציה <b>מרצים</b> בתפריט.
+        לחצו על התמונה של המרצה על מנת לראות קורות חייו ואת רשימת ההרצאות.
+        </p>
+        <p>אם אתם רוצים לראות את לוח הזמנים של פסטיבל בצורת טפט, בחרו אופציה <b>לו"ז</b> בתפריט. לחצו על שם היחידה על מנת לראות מידע נוסף אודותיה.
+		</p>
+        <p>שימו לב שתוכנית הפסטיבל ניתן לראות גם בטלפונים סלולריים.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  {{> footer_he}}
+
+  <script>
+    $(document).ready(function() {
+      $('[data-toggle="tooltip"]').tooltip();
+    });
+  </script>
+</body>
+</html>
