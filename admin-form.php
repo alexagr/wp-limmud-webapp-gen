@@ -524,6 +524,10 @@ class WebApp_Gen_Admin_Form
         if (empty($error)) {
             $error = generate($this->get_defaults());
         }
+        if (empty($error) && is_plugin_active('wp-dummy-plugin/wp-dummy-plugin.php')) {
+            deactivate_plugins('wp-dummy-plugin/wp-dummy-plugin.php');
+            activate_plugins('wp-dummy-plugin/wp-dummy-plugin.php');
+        }
         return $error;
     }
 
