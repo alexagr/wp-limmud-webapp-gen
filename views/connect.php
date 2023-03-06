@@ -7,13 +7,16 @@
 <li>* Go to <a href="https://console.developers.google.com">https://console.developers.google.com</a></li>
 <li>* Choose existing project or create a new one.</li>
 <li>* Click <b>Enable APIs And Services</b>.</li>
-<li>* Search for <b>Google Sheet API</b> and enable it.</li>
+<li> &nbsp;&nbsp;* Search for <b>Google Sheet API</b> and enable it.</li>
 <li>* Click <b>Credentials &gt; Create Credentials &gt; OAuth Client ID</b>.</li>
 <li> &nbsp;&nbsp;* For <b>Application type</b> select &quot;Web Application&quot;</li>
 <li> &nbsp;&nbsp;* For <b>Name</b> enter &quot;Limmud WebApp Generator&quot;</li>
 <li> &nbsp;&nbsp;* For <b>Authorized redirect URIs</b> enter &quot;<?php echo webapp_gen_view_pagename('connect'); ?>&quot;</li>
 <li> &nbsp;&nbsp;* Click <b>Create</b></li>
 <li>* Copy generated credentials below and click <b>Update</b>.</li>
+<li>* Click <b>OAuth consent screen</b>.</li>
+<li> &nbsp;&nbsp;* Under <b>Test users</b> click <b>Add users</b></li>
+<li> &nbsp;&nbsp;* Enter your email address and click <b>Save</b></li>
 </ul>
 
 <form method="POST" action="<?php echo esc_html(admin_url('admin-post.php')); ?>" onkeydown="return event.key != 'Enter';">
