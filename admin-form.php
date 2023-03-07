@@ -54,7 +54,7 @@ class WebApp_Gen_Admin_Form
     {
         $advanced_defaults = array(
             'webapp_folder' => 'webapp',
-            'server_timezone' => '',
+            'event_timezone' => '',
             'close_calendar_gaps' => 'no',
             'close_calendar_gaps_ignore_meals' => 'yes',
             'schedule_sheet' => 'Schedule',
@@ -442,7 +442,7 @@ class WebApp_Gen_Admin_Form
     {
         $args = [];
         $args['webapp_folder'] = $this->render_input('webapp-gen-advanced', 'webapp_folder');
-        $args['server_timezone'] = $this->render_input('webapp-gen-advanced', 'server_timezone');
+        $args['event_timezone'] = $this->render_input('webapp-gen-advanced', 'event_timezone');
         $args['close_calendar_gaps'] = $this->render_select('webapp-gen-advanced', 'close_calendar_gaps', array('no' => 'no', '15' => '15 min', '30' => '30 min', '45' => '45 min', '60' => '1 hour'));
         $args['close_calendar_gaps_ignore_meals'] = $this->render_select('webapp-gen-advanced', 'close_calendar_gaps_ignore_meals', array('no' => 'no', 'yes' => 'yes'));
         $args['schedule_sheet'] = $this->render_input('webapp-gen-advanced', 'schedule_sheet');

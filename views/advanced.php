@@ -21,8 +21,8 @@
 
     <table class="form-table" role="presentation">
         <tr>
-            <th scope="row"><label for="server_timezone"><?php echo esc_html__("Server timezone", 'webapp-gen') ?></label></th>
-            <td><?php echo $server_timezone; ?></td>
+            <th scope="row"><label for="event_timezone"><?php echo esc_html__("Event timezone", 'webapp-gen') ?></label></th>
+            <td><?php echo $event_timezone; ?></td>
         </tr>
     </table>
 

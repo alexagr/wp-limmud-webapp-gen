@@ -504,12 +504,12 @@ function parse_sheets($client, $app_name, $sheet_id, $config)
         }
 
         # update end_time if session overlaps to the next day
-        $start_time = $date . 'T' . $start . ':00' . $config['server_timezone'];
+        $start_time = $date . 'T' . $start . ':00';
         if (intval(explode(':', $end)[0]) < 3) {
             $yymmdd = explode('-', $date);
-            $end_time = $yymmdd[0] . '-' . $yymmdd[1] . '-' . strval(intval($yymmdd[2]) + 1) . 'T' . $end . ':00' . $config['server_timezone'];
+            $end_time = $yymmdd[0] . '-' . $yymmdd[1] . '-' . strval(intval($yymmdd[2]) + 1) . 'T' . $end . ':00';
         } else {
-            $end_time = $date . 'T' . $end . ':00' . $config['server_timezone'];
+            $end_time = $date . 'T' . $end . ':00';
         }
 
         # update tracks
@@ -1141,6 +1141,10 @@ function generate($config)
     $client = get_client();
     if (is_null($client)) {
         return 'ERROR: cannot initialize Google API client';
+    }
+
+    if (!empty($config['event_timezone'])) {
+        date_default_timezone_set($config['event_timezone']);
     }
 
     try {
