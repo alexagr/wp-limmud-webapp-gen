@@ -158,7 +158,7 @@ function parse_sheets($client, $app_name, $sheet_id, $config)
         if (empty($photo)) {
             $photo = 'avatar.png';
         } else {
-            if (!str_contains($photo, '.')) {
+            if (strpos($photo, '.') === false) {
                 $photo .= '.jpg';
             }
         }
@@ -946,7 +946,7 @@ function foldByRooms($sessions, $speakers, $tracks, $config) {
             'language2' => $session['language2'],
             'language_short' => $session['language_short'],
             'session_id' => $session['id'],
-            'sessiondate' => $days_ru[date('w', $timestamp)] . ', ' . date('j', $timestamp) . ' ' . $months_short_ru[date('n', $timestamp)],
+            'sessiondate_ru' => $days_ru[date('w', $timestamp)] . ', ' . date('j', $timestamp) . ' ' . $months_short_ru[date('n', $timestamp)],
             'sessiondate_he' => $days_he[date('w', $timestamp)] . ', ' . date('j', $timestamp) . ' ' . $months_short_he[date('n', $timestamp)],
             'sessiondate_en' => $days_en[date('w', $timestamp)] . ', ' . $months_short_en[date('n', $timestamp)] . ' ' . date('j', $timestamp),
             'tracktitle' => $session['track']['name'],
@@ -1184,12 +1184,15 @@ function generate($config)
         if (!empty($event['map'])) {
             $pages[] = 'map';
         }
-        if (!empty($event['second_language'])) {
-            foreach ($pages as $page) {
+        foreach ($pages as $page) {
+            if (!empty($event['second_language'])) {
                 $model['otherpage'] = $page . '_' . $event['second_language'];
                 $model['otherpage2'] = $page;
                 file_put_contents(webapp_path($event['app_name']) . '/' . $page . '.html',  $handlebars->render($page, $model));
                 file_put_contents(webapp_path($event['app_name']) . '/' . $page . '_' . $event['second_language'] . '.html',  $handlebars->render($page . '_' . $event['second_language'], $model));
+            } else {
+                $model['otherpage'] = '';
+                file_put_contents(webapp_path($event['app_name']) . '/' . $page . '.html',  $handlebars->render($page, $model));
             }
         }
     } catch (Exception $e) {
