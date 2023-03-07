@@ -26,7 +26,7 @@ function parse_sheets($client, $app_name, $sheet_id, $config)
         'app_name' => $app_name, 'title' => 'Limmud FSU Israel', 'name' => 'Limmud FSU Israel', 'name2' => 'Limmud FSU Israel', 'date' => '12-14 December 2019', 'date2' => '12-14 December 2019',
         'copyright' => array('holder' => 'Limmud FSU Israel', 'holder_url' => 'http://limmudfsu.org.il', 'licence' => 'Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License', 'licence_url' => 'http://creativecommons.org/licenses/by-nc-sa/4.0/', 'logo' => 'https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png', 'year' => date("Y")),
         'organizer_name' => 'Limmud FSU Israel', 'email' => 'reg@limmudfsu.org.il',
-        'social_links' => array(), 'second_language' => 'he'
+        'social_links' => array(), 'second_language' => 'he', 'logo' => 'assets/img/logo.png', 'icon' => 'assets/img/icon.png', 'analytics' => ''
     );
     $header = $service->spreadsheets_values->get($sheet_id, $config['event_sheet'] . '!A1:1')->getValues()[0];
     $rows = $service->spreadsheets_values->get($sheet_id, $config['event_sheet'] . '!A2:AZ2')->getValues();
@@ -42,6 +42,7 @@ function parse_sheets($client, $app_name, $sheet_id, $config)
         $event['map2'] = get_cell($header, $row, $config['event_map2_column'], '');
         $event['organizer_name'] = get_cell($header, $row, $config['event_organizer_name_column'], $event['organizer_name']);
         $event['email'] = get_cell($header, $row, $config['event_email_column'], $event['email']);
+        $event['analytics'] = get_cell($header, $row, $config['event_analytics_column'], '');
 
         $event['copyright']['holder'] = $event['organizer_name'];
 
@@ -74,6 +75,15 @@ function parse_sheets($client, $app_name, $sheet_id, $config)
         } else {
             $event['second_language'] = '';
             $event['second_language_text'] = '';
+        }
+
+        $value = get_cell($header, $row, $config['event_logo_column'], '');
+        if (!empty($value)) {
+            $event['logo'] = $value;
+        }
+        $value = get_cell($header, $row, $config['event_icon_column'], '');
+        if (!empty($value)) {
+            $event['icon'] = $value;
         }
     }
 

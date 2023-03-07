@@ -121,7 +121,10 @@ class WebApp_Gen_Admin_Form
             'event_facebook_url_column' => 'facebook-url',
             'event_instagram_url_column' => 'instagram-url',
             'event_telegram_url_column' => 'telegram-url',
-            'event_email_column' => 'email'
+            'event_email_column' => 'email',
+            'event_logo_column' => 'logo',
+            'event_icon_column' => 'icon',
+            'event_analytics_column' => 'google-analytics-tag'
         );
         foreach ($this->get_whitelisted_keys() as $key => $val) {
             if ($val == 'webapp-gen-advanced') {
@@ -510,6 +513,9 @@ class WebApp_Gen_Admin_Form
         $args['event_instagram_url_column'] = $this->render_input('webapp-gen-advanced', 'event_instagram_url_column');
         $args['event_telegram_url_column'] = $this->render_input('webapp-gen-advanced', 'event_telegram_url_column');
         $args['event_email_column'] = $this->render_input('webapp-gen-advanced', 'event_email_column');
+        $args['event_logo_column'] = $this->render_input('webapp-gen-advanced', 'event_logo_column');
+        $args['event_icon_column'] = $this->render_input('webapp-gen-advanced', 'event_icon_column');
+        $args['event_analytics_column'] = $this->render_input('webapp-gen-advanced', 'event_analytics_column');
         return $args;
     }
 

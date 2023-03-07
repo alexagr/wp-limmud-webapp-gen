@@ -429,6 +429,16 @@
         </tr>
 
         <tr>
+            <th scope="row"><label for="event_logo_column"><?php echo esc_html__("Logo column", 'webapp-gen') ?></label></th>
+            <td><?php echo $event_logo_column; ?></td>
+        </tr>
+
+        <tr>
+            <th scope="row"><label for="event_icon_column"><?php echo esc_html__("Icon column", 'webapp-gen') ?></label></th>
+            <td><?php echo $event_icon_column; ?></td>
+        </tr>
+
+        <tr>
             <th scope="row"><label for="event_organizer_name_column"><?php echo esc_html__("Organizer name column", 'webapp-gen') ?></label></th>
             <td><?php echo $event_organizer_name_column; ?></td>
         </tr>
@@ -456,6 +466,11 @@
         <tr>
             <th scope="row"><label for="event_email_column"><?php echo esc_html__("Email column", 'webapp-gen') ?></label></th>
             <td><?php echo $event_email_column; ?></td>
+        </tr>
+
+        <tr>
+            <th scope="row"><label for="event_analytics_column"><?php echo esc_html__("Google Analytics tag column", 'webapp-gen') ?></label></th>
+            <td><?php echo $event_analytics_column; ?></td>
         </tr>
 
     </table>
