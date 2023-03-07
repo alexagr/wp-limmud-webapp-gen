@@ -21,6 +21,13 @@
 
     <table class="form-table" role="presentation">
         <tr>
+            <th scope="row"><label for="server_timezone"><?php echo esc_html__("Server timezone", 'webapp-gen') ?></label></th>
+            <td><?php echo $server_timezone; ?></td>
+        </tr>
+    </table>
+
+    <table class="form-table" role="presentation">
+        <tr>
             <th scope="row"><label for="close_calendar_gaps"><?php echo esc_html__("Close gaps between sessions in calendar view", 'webapp-gen') ?></label></th>
             <td><?php echo $close_calendar_gaps; ?></td>
         </tr>
