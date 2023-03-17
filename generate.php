@@ -43,6 +43,7 @@ function parse_sheets($client, $app_name, $sheet_id, $config)
         $event['organizer_name'] = get_cell($header, $row, $config['event_organizer_name_column'], $event['organizer_name']);
         $event['email'] = get_cell($header, $row, $config['event_email_column'], $event['email']);
         $event['analytics'] = get_cell($header, $row, $config['event_analytics_column'], '');
+        $event['note2'] = get_cell($header, $row, $config['note2_column'], '');
 
         $event['copyright']['holder'] = $event['organizer_name'];
 
@@ -306,6 +307,19 @@ function parse_sheets($client, $app_name, $sheet_id, $config)
         $tmp_date = get_cell($header, $row, $config['schedule_date_column'], '');
         $tmp_start = get_cell($header, $row, $config['schedule_start_column'], '');
         $tmp_end = get_cell($header, $row, $config['schedule_end_column'], '');
+
+        if (substr($tmp_start, 0, 3) == '00:') {
+            $tmp_start = '24:' . substr($tmp_start, 3);
+        }
+        if (substr($tmp_start, 0, 3) == '01:') {
+            $tmp_start = '25:' . substr($tmp_start, 3);
+        }
+        if (substr($tmp_end, 0, 3) == '00:') {
+            $tmp_end = '24:' . substr($tmp_end, 3);
+        }
+        if (substr($tmp_end, 0, 3) == '01:') {
+            $tmp_end = '25:' . substr($tmp_end, 3);
+        }
 
         if (!empty($tmp_date)) {
             if (empty($tmp_start) && empty($tmp_end)) {
@@ -684,7 +698,7 @@ $months_short_en = array(
     12 => 'Dec'
 );
 
-function foldByTime($sessions, $speakers, $tracks) {
+function foldByTime($sessions, $speakers, $tracks, $config, $lang) {
     global $days_ru;
     global $months_ru;
     global $months_short_ru;
@@ -697,6 +711,10 @@ function foldByTime($sessions, $speakers, $tracks) {
 
     $dates = array();
     foreach ($sessions as $session) {
+        if (empty($session['title2']) && ($lang == 'secondary') && $config['language2_hide_content_no_data'] == 'yes') {
+            continue;
+        }
+        
         $timestamp = strtotime($session['start_time']);
         $date = date('Y-m-d', $timestamp);
         $time = date('H:i', $timestamp);
@@ -806,7 +824,7 @@ function convertTimeToPixel($startTime, $sessionTime)
         $timeDiff += 24 * 60;
     }
     $top = $timeDiff * $timeToPixel / 15 + $timeToPixel; // distance of session from top of the table
-    return $top;
+    return round($top);
 }
 
 function createTimeLine($startTime, $endTime)
@@ -841,7 +859,7 @@ function createTimeLine($startTime, $endTime)
         $i = ($i + 15) % 60;
         $height += $timeToPixel;
         if ($i == 0) {
-        $startHour++;
+            $startHour++;
         }
     }
 
@@ -861,7 +879,7 @@ function checkWidth($columns)
 }
 
 
-function foldByRooms($sessions, $speakers, $tracks, $config) {
+function foldByRooms($sessions, $speakers, $tracks, $config, $lang) {
     global $days_ru;
     global $months_ru;
     global $months_short_ru;
@@ -874,6 +892,10 @@ function foldByRooms($sessions, $speakers, $tracks, $config) {
 
     $dates = array();
     foreach ($sessions as $session) {
+        if (empty($session['title2']) && ($lang == 'secondary') && $config['language2_hide_content_no_data'] == 'yes') {
+            continue;
+        }
+
         $timestamp = strtotime($session['start_time']);
         $date = date('Y-m-d', $timestamp);
         $time = date('H:i', $timestamp);
@@ -1031,7 +1053,7 @@ function foldByRooms($sessions, $speakers, $tracks, $config) {
     return $dates;
 }
 
-function getSpeakerSessions($speakerid, $sessions, $tracks)
+function getSpeakerSessions($speakerid, $sessions, $tracks, $config, $lang)
 {
     global $days_ru;
     global $months_ru;
@@ -1045,9 +1067,13 @@ function getSpeakerSessions($speakerid, $sessions, $tracks)
 
     $speakerSessions = array();
     foreach ($sessions as $session) {
+        if (empty($session['title2']) && ($lang == 'secondary') && $config['language2_hide_content_no_data'] == 'yes') {
+            continue;
+        }
+
         $roomName = $session['location']['name'];
         if (($roomName == 'Отмена') /*|| ($roomName == 'Столовая') || ($roomName == 'Экскурсия')*/) {
-        continue;
+            continue;
         }
 
         $speakerFound = false;
@@ -1091,37 +1117,18 @@ function getSpeakerSessions($speakerid, $sessions, $tracks)
     return $speakerSessions;
 }
 
-function foldBySpeakers($sessions, $speakers, $tracks)
+function foldBySpeakers($sessions, $speakers, $tracks, $config, $lang)
 {
     $speakersList = array();
     foreach ($speakers as $speaker) {
-        $speakerSessions = getSpeakerSessions($speaker['id'], $sessions, $tracks);
+        $speakerSessions = getSpeakerSessions($speaker['id'], $sessions, $tracks, $config, $lang);
         if (!empty($speakerSessions)) {
             $speaker['sessions'] = $speakerSessions;
-            $speakersList[$speaker['name']] = $speaker;
-        }
-    }
-    ksort($speakersList);
-
-    $i = 0;
-    foreach ($speakersList as $name => $speaker) {
-        if ($speakersList[$name]['has_data']) {
-            $speakersList[$name]['row_start'] = ($i % 3 == 0);
-            $speakersList[$name]['row_end'] = ($i % 3 == 2);
-            $i += 1;
-        }
-    }
-    return $speakersList;
-}
-
-function foldBySpeakers2($sessions, $speakers, $tracks)
-{
-    $speakersList = array();
-    foreach ($speakers as $speaker) {
-        $speakerSessions = getSpeakerSessions($speaker['id'], $sessions, $tracks);
-        if (!empty($speakerSessions)) {
-            $speaker['sessions'] = getSpeakerSessions($speaker['id'], $sessions, $tracks);
-            $speakersList[$speaker['name2']] = $speaker;
+            if ($lang == 'primary') {
+                $speakersList[$speaker['name']] = $speaker;
+            } else {
+                $speakersList[$speaker['name2']] = $speaker;
+            }
         }
     }
     ksort($speakersList);
@@ -1148,9 +1155,13 @@ function generate($config)
         return 'ERROR: Google Sheet ID is empty';
     }
 
-    $client = get_client();
-    if (is_null($client)) {
-        return 'ERROR: cannot initialize Google API client';
+    try {
+        $client = get_client();
+        if (is_null($client)) {
+            return 'ERROR: cannot initialize Google API client';
+        }
+    } catch (Exception $e) {
+        return $e->getMessage();
     }
 
     if (!empty($config['event_timezone'])) {
@@ -1169,10 +1180,12 @@ function generate($config)
         'version' => date('mdHi')
     );
 
-    $model['timeList'] = foldByTime($sessions, $speakers, $tracks);
-    $model['roomsList'] = foldByRooms($sessions, $speakers, $tracks, $config['webapp-gen-advanced']);
-    $model['speakersList'] = foldBySpeakers($sessions, $speakers, $tracks);
-    $model['speakersList2'] = foldBySpeakers2($sessions, $speakers, $tracks);
+    $model['timeList'] = foldByTime($sessions, $speakers, $tracks, $config['webapp-gen-advanced'], 'primary');
+    $model['timeList2'] = foldByTime($sessions, $speakers, $tracks, $config['webapp-gen-advanced'], 'secondary');
+    $model['roomsList'] = foldByRooms($sessions, $speakers, $tracks, $config['webapp-gen-advanced'], 'primary');
+    $model['roomsList2'] = foldByRooms($sessions, $speakers, $tracks, $config['webapp-gen-advanced'], 'secondary');
+    $model['speakersList'] = foldBySpeakers($sessions, $speakers, $tracks, $config['webapp-gen-advanced'], 'primary');
+    $model['speakersList2'] = foldBySpeakers($sessions, $speakers, $tracks, $config['webapp-gen-advanced'], 'secondary');
 
     $partialsDir = __DIR__ . "/webapp/templates/partials";
     $partialsLoader = new FilesystemLoader($partialsDir,

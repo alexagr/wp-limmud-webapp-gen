@@ -55,8 +55,9 @@ class WebApp_Gen_Admin_Form
         $advanced_defaults = array(
             'webapp_folder' => 'webapp',
             'event_timezone' => '',
-            'close_calendar_gaps' => 'no',
+            'close_calendar_gaps' => '15',
             'close_calendar_gaps_ignore_meals' => 'yes',
+            'language2_hide_content_no_data' => 'yes',
             'schedule_sheet' => 'Schedule',
             'schedule_date_column' => 'date',
             'schedule_start_column' => 'start',
@@ -124,7 +125,8 @@ class WebApp_Gen_Admin_Form
             'event_email_column' => 'email',
             'event_logo_column' => 'logo',
             'event_icon_column' => 'icon',
-            'event_analytics_column' => 'google-analytics-tag'
+            'event_analytics_column' => 'google-analytics-tag',
+            'note2_column' => 'note-en'
         );
         foreach ($this->get_whitelisted_keys() as $key => $val) {
             if ($val == 'webapp-gen-advanced') {
@@ -448,6 +450,7 @@ class WebApp_Gen_Admin_Form
         $args['event_timezone'] = $this->render_input('webapp-gen-advanced', 'event_timezone');
         $args['close_calendar_gaps'] = $this->render_select('webapp-gen-advanced', 'close_calendar_gaps', array('no' => 'no', '15' => '15 min', '30' => '30 min', '45' => '45 min', '60' => '1 hour'));
         $args['close_calendar_gaps_ignore_meals'] = $this->render_select('webapp-gen-advanced', 'close_calendar_gaps_ignore_meals', array('no' => 'no', 'yes' => 'yes'));
+        $args['language2_hide_content_no_data'] = $this->render_select('webapp-gen-advanced', 'language2_hide_content_no_data', array('no' => 'no', 'yes' => 'yes'));
         $args['schedule_sheet'] = $this->render_input('webapp-gen-advanced', 'schedule_sheet');
         $args['schedule_date_column'] = $this->render_input('webapp-gen-advanced', 'schedule_date_column');
         $args['schedule_start_column'] = $this->render_input('webapp-gen-advanced', 'schedule_start_column');
@@ -516,6 +519,7 @@ class WebApp_Gen_Admin_Form
         $args['event_logo_column'] = $this->render_input('webapp-gen-advanced', 'event_logo_column');
         $args['event_icon_column'] = $this->render_input('webapp-gen-advanced', 'event_icon_column');
         $args['event_analytics_column'] = $this->render_input('webapp-gen-advanced', 'event_analytics_column');
+        $args['note2_column'] = $this->render_input('webapp-gen-advanced', 'note2_column');
         return $args;
     }
 

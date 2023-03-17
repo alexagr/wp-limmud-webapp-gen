@@ -40,6 +40,13 @@
         </tr>
     </table>
 
+    <table class="form-table" role="presentation">
+        <tr>
+            <th scope="row"><label for="language2_hide_content_no_data"><?php echo esc_html__("Hide content in 2nd language that lacks data", 'webapp-gen') ?></label></th>
+            <td><?php echo $language2_hide_content_no_data; ?></td>
+        </tr>
+    </table>
+
     <?php webapp_gen_submit(esc_html__('Update')); ?>
 </form>
 </div>
@@ -471,6 +478,11 @@
         <tr>
             <th scope="row"><label for="event_analytics_column"><?php echo esc_html__("Google Analytics tag column", 'webapp-gen') ?></label></th>
             <td><?php echo $event_analytics_column; ?></td>
+        </tr>
+
+        <tr>
+            <th scope="row"><label for="note2_column"><?php echo esc_html__("2nd language note column", 'webapp-gen') ?></label></th>
+            <td><?php echo $note2_column; ?></td>
         </tr>
 
     </table>
