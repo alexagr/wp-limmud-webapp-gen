@@ -72,6 +72,12 @@ class WebApp_Gen_Admin_Form
             'schedule_presenter2_column' => 'presenter2',
             'schedule_presenter3_column' => 'presenter3',
             'schedule_presenter4_column' => 'presenter4',
+            'schedule_presenter5_column' => 'presenter5',
+            'schedule_presenter6_column' => 'presenter6',
+            'schedule_presenter7_column' => 'presenter7',
+            'schedule_presenter8_column' => 'presenter8',
+            'schedule_presenter9_column' => 'presenter9',
+            'schedule_presenter10_column' => 'presenter10',
             'presenter_sheet' => 'Presenters',
             'presenter_name_column' => 'name',
             'presenter_name2_column' => 'name-en',
@@ -462,9 +468,9 @@ class WebApp_Gen_Admin_Form
         $args['schedule_session_language_column'] = $this->render_input('webapp-gen-advanced', 'schedule_session_language_column');
         $args['schedule_session_type_column'] = $this->render_input('webapp-gen-advanced', 'schedule_session_type_column');
         $args['schedule_session_sabbath_column'] = $this->render_input('webapp-gen-advanced', 'schedule_session_sabbath_column');
-        $args['schedule_presenter2_column'] = $this->render_input('webapp-gen-advanced', 'schedule_presenter2_column');
-        $args['schedule_presenter3_column'] = $this->render_input('webapp-gen-advanced', 'schedule_presenter3_column');
-        $args['schedule_presenter4_column'] = $this->render_input('webapp-gen-advanced', 'schedule_presenter4_column');
+        for ($i = 2; $i <= 10; $i++) {
+            $args['schedule_presenter' . strval($i) . '_column'] = $this->render_input('webapp-gen-advanced', 'schedule_presenter' . strval($i) . '_column');
+        }
         $args['presenter_sheet'] = $this->render_input('webapp-gen-advanced', 'presenter_sheet');
         $args['presenter_name_column'] = $this->render_input('webapp-gen-advanced', 'presenter_name_column');
         $args['presenter_name2_column'] = $this->render_input('webapp-gen-advanced', 'presenter_name2_column');

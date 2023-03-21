@@ -125,6 +125,30 @@
             <th scope="row"><label for="schedule_presenter4_column"><?php echo esc_html__("Presenter 4 column", 'webapp-gen') ?></label></th>
             <td><?php echo $schedule_presenter4_column; ?></td>
         </tr>
+        <tr>
+            <th scope="row"><label for="schedule_presenter5_column"><?php echo esc_html__("Presenter 5 column", 'webapp-gen') ?></label></th>
+            <td><?php echo $schedule_presenter5_column; ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><label for="schedule_presenter6_column"><?php echo esc_html__("Presenter 6 column", 'webapp-gen') ?></label></th>
+            <td><?php echo $schedule_presenter6_column; ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><label for="schedule_presenter7_column"><?php echo esc_html__("Presenter 7 column", 'webapp-gen') ?></label></th>
+            <td><?php echo $schedule_presenter7_column; ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><label for="schedule_presenter8_column"><?php echo esc_html__("Presenter 8 column", 'webapp-gen') ?></label></th>
+            <td><?php echo $schedule_presenter8_column; ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><label for="schedule_presenter9_column"><?php echo esc_html__("Presenter 9 column", 'webapp-gen') ?></label></th>
+            <td><?php echo $schedule_presenter9_column; ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><label for="schedule_presenter10_column"><?php echo esc_html__("Presenter 10 column", 'webapp-gen') ?></label></th>
+            <td><?php echo $schedule_presenter10_column; ?></td>
+        </tr>
     </table>
 
     <?php webapp_gen_submit(esc_html__('Update')); ?>
